@@ -24,7 +24,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_PETS = "pets";
     public static final String COLUMN_PETS_NAME = "pet_name";
     public static final String COLUMN_PETS_DESCRIPTION = "pet_description";
-    public static final String COLUMN_PETS_CATEGOGY_ID = "pet_category_id";
+    public static final String COLUMN_PETS_CATEGORY_ID = "pet_category_id";
     public static final String COLUMN_PETS_IMG = "pet_img";
     public static final String COLUMN_PETS_USER_ID = "user_id";
     public static final String COLUMN_PETS_DATE = "pet_date";
@@ -38,7 +38,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String TABLE_PET_CATEGOGY = "pet_category";
     public static final String COLUMN_PET_CATEGORY_ID = "pet_category_id";
     public static final String COLUMN_PET_CATEGORY_NAME = "pet_category_name";
-    public static final String COLUMN_PET_CATEGORY_DATE_CHANGE = "pet_category_date_change";
+    public static final String COLUMN_PET_CATEGORY_DATE_ADD = "pet_category_date_add";
 
     public static final String TABLE_ORDERS = "orders";
     public static final String COLUMN_ORDERS_ID = "order_id";
@@ -60,6 +60,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PET_PROD_IMAGE = "pet_prod_image";
     public static final String COLUMN_PET_PROD_QUANTITY = "pet_prod_quantity";
     public static final String COLUMN_PET_PROD_COUNT = "pet_prod_count";
+    public static final String COLUMN_PET_PROD_DATE_ADD = "pet_prod_date_add";
     public static final String COLUMN_PET_PROD_DATE_CHANGE = "pet_prod_date_change";
     public static final String COLUMN_PET_PROD_CATEGOGY_ID = "pet_category_id";
 
@@ -92,13 +93,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_USER_DATE_CREATE + " DATETIME "
                 + ")");
 
+        //tao bang pet_categogy
+        db.execSQL("CREATE TABLE " + TABLE_PET_CATEGOGY + "("
+                + COLUMN_PET_CATEGORY_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_PET_CATEGORY_NAME + " TEXT,"
+                + COLUMN_PET_CATEGORY_DATE_ADD + " DATETIME"
+                + ")");
+
         //tao bang pets
         db.execSQL("CREATE TABLE " + TABLE_PETS + "("
-                + COLUMN_PETS_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_PET_PROD_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_PETS_ID + " TEXT UNIQUE,"
                 + COLUMN_PETS_NAME + " TEXT,"
                 + COLUMN_PETS_DESCRIPTION + " TEXT,"
-                + COLUMN_PETS_CATEGOGY_ID + " INTEGER,"
+                + COLUMN_PETS_CATEGORY_ID + " INTEGER,"
                 + COLUMN_PETS_IMG + " TEXT,"
                 + COLUMN_PETS_USER_ID + " INTEGER,"
                 + COLUMN_PETS_DATE + " DATETIME,"
@@ -106,10 +114,25 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_PETS_SERVICE_FEE + " REAL,"
                 + COLUMN_PETS_SERVICE_DETAIL + " TEXT,"
                 + COLUMN_PETS_SERVICE_DATE + " DATETIME, "
-                + "FOREIGN KEY(" + COLUMN_PETS_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_ID + ")"
+                + "FOREIGN KEY(" + COLUMN_PETS_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_ID + "), "
+                + "FOREIGN KEY(" + COLUMN_PETS_CATEGORY_ID + ") REFERENCES " + TABLE_PET_CATEGOGY + "(" + COLUMN_PET_CATEGORY_ID + ")"
                 + ")");
 
-        //tao bang pet_categogy
+        //tao bang pet_product
+        db.execSQL("CREATE TABLE " + TABLE_PET_PRODUCT + "("
+                + COLUMN_PET_PROD_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_PET_PROD_ID + " TEXT UNIQUE,"
+                + COLUMN_PET_PROD_NAME + " TEXT,"
+                + COLUMN_PET_PROD_DETAIL + " TEXT,"
+                + COLUMN_PET_PROD_PRICE + " REAL,"
+                + COLUMN_PET_PROD_ORIGIN + " TEXT,"
+                + COLUMN_PET_PROD_IMAGE + " INTEGER,"
+                + COLUMN_PET_PROD_QUANTITY + " INTEGER,"
+                + COLUMN_PET_PROD_DATE_ADD + " DATETIME,"
+                + COLUMN_PET_PROD_DATE_CHANGE + " DATETIME,"
+                + COLUMN_PET_PROD_CATEGOGY_ID + " INTERGER, "
+                + "FOREIGN KEY(" + COLUMN_PET_PROD_CATEGOGY_ID + ") REFERENCES " + TABLE_PET_CATEGOGY + "(" + COLUMN_PET_CATEGORY_ID + ")"
+                + ")");
     }
 
     @Override
