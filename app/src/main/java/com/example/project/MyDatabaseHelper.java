@@ -40,6 +40,41 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_PET_CATEGORY_NAME = "pet_category_name";
     public static final String COLUMN_PET_CATEGORY_DATE_CHANGE = "pet_category_date_change";
 
+    public static final String TABLE_ORDERS = "orders";
+    public static final String COLUMN_ORDERS_ID = "order_id";
+    public static final String COLUMN_ORDERS_DATE = "order_date";
+    public static final String COLUMN_ORDERS_TOTAL = "order_total";
+    public static final String COLUMN_ORDERS_NUMBER_OF_ITEM = "order_number_of_item";
+    public static final String COLUMN_ORDERS_USER_ID = "user_id";
+    public static final String COLUMN_ORDERS_STATUS = "order_status";
+    public static final String COLUMN_ORDERS_PET_PROD_ID = "pet_prod_id";
+    public static final String COLUMN_ORDERS_COUNT = "order_count";
+    public static final String COLUMN_ORDERS_DATE_CHANGE = "date_order_change";
+
+    public static final String TABLE_PET_PRODUCT = "pet_product";
+    public static final String COLUMN_PET_PROD_ID = "pet_prod_id";
+    public static final String COLUMN_PET_PROD_NAME = "pet_prod_name";
+    public static final String COLUMN_PET_PROD_DETAIL = "pet_prod_detail";
+    public static final String COLUMN_PET_PROD_PRICE = "pet_prod_price";
+    public static final String COLUMN_PET_PROD_ORIGIN = "pet_prod_origin";
+    public static final String COLUMN_PET_PROD_IMAGE = "pet_prod_image";
+    public static final String COLUMN_PET_PROD_QUANTITY = "pet_prod_quantity";
+    public static final String COLUMN_PET_PROD_COUNT = "pet_prod_count";
+    public static final String COLUMN_PET_PROD_DATE_CHANGE = "pet_prod_date_change";
+    public static final String COLUMN_PET_PROD_CATEGOGY_ID = "pet_category_id";
+
+    public static final String TABLE_ADMIN = "admin";
+    public static final String COLUMN_ADMIN_NAME = "admin_name";
+    public static final String COLUMN_ADMIN_PASSWORD = "admin_password";
+    public static final String COLUMN_ADMIN_COUNT= "admin_count";
+    public static final String COLUMN_ADMIN_DATE_CHANGE = "admin_date_change";
+
+    public static final String TABLE_CONTACT = "contacts";
+    public static final String COLUMN_CONTACT_COUNT = "contact_count";
+    public static final String COLUMN_CONTACT_MESS = "contact_mess";
+    public static final String COLUMN_CONTACT_NAME= "contact_name";
+    public static final String COLUMN_CONTACT_EMAIL = "contact_email";
+    public static final String COLUMN_CONTACT_DATE_SEND = "contact_date_send";
 
     public MyDatabaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null , DATABASE_VERSION);
@@ -47,7 +82,34 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        //tao bang users
+        db.execSQL("CREATE TABLE " + TABLE_USERS + "("
+                + COLUMN_USER_ID + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_USER_NAME + " TEXT,"
+                + COLUMN_USER_PASSWORD + " TEXT,"
+                + COLUMN_USER_PHONE + " TEXT,"
+                + COLUMN_USER_ADDRESS + " TEXT,"
+                + COLUMN_USER_DATE_CREATE + " DATETIME "
+                + ")");
 
+        //tao bang pets
+        db.execSQL("CREATE TABLE " + TABLE_PETS + "("
+                + COLUMN_PETS_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_PETS_ID + " TEXT UNIQUE,"
+                + COLUMN_PETS_NAME + " TEXT,"
+                + COLUMN_PETS_DESCRIPTION + " TEXT,"
+                + COLUMN_PETS_CATEGOGY_ID + " INTEGER,"
+                + COLUMN_PETS_IMG + " TEXT,"
+                + COLUMN_PETS_USER_ID + " INTEGER,"
+                + COLUMN_PETS_DATE + " DATETIME,"
+                + COLUMN_PETS_STATUS + " INTEGER DEFAULT 0,"
+                + COLUMN_PETS_SERVICE_FEE + " REAL,"
+                + COLUMN_PETS_SERVICE_DETAIL + " TEXT,"
+                + COLUMN_PETS_SERVICE_DATE + " DATETIME, "
+                + "FOREIGN KEY(" + COLUMN_PETS_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_ID + ")"
+                + ")");
+
+        //tao bang pet_categogy
     }
 
     @Override
