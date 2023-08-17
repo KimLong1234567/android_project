@@ -101,7 +101,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
         //tao bang pets
         db.execSQL("CREATE TABLE " + TABLE_PETS + "("
-                + COLUMN_PET_PROD_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_PETS_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
                 + COLUMN_PETS_ID + " TEXT UNIQUE,"
                 + COLUMN_PETS_NAME + " TEXT,"
                 + COLUMN_PETS_DESCRIPTION + " TEXT,"
@@ -145,6 +145,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_ORDERS_PET_PROD_ID + " TEXT,"
                 + "FOREIGN KEY(" + COLUMN_ORDERS_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_ID + "), "
                 + "FOREIGN KEY(" + COLUMN_ORDERS_PET_PROD_ID + ") REFERENCES " + TABLE_PET_PRODUCT + "(" + COLUMN_PET_PROD_ID + ")"
+                + ")");
+
+        //tao bang admin
+        db.execSQL("CREATE TABLE " + TABLE_ADMIN + "("
+                + COLUMN_ADMIN_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_ADMIN_NAME + " TEXT,"
+                + COLUMN_ADMIN_PASSWORD + " TEXT,"
+                + COLUMN_ADMIN_DATE_CHANGE + " DATETIME"
+                + ")");
+
+        //tao bang contact
+        db.execSQL("CREATE TABLE " + TABLE_CONTACT + "("
+                + COLUMN_CONTACT_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COLUMN_CONTACT_NAME + " TEXT,"
+                + COLUMN_CONTACT_EMAIL + " TEXT,"
+                + COLUMN_CONTACT_MESS + " TEXT,"
+                + COLUMN_CONTACT_DATE_SEND + " DATETIME"
                 + ")");
     }
 
