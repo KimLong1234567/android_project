@@ -49,7 +49,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ORDERS_STATUS = "order_status";
     public static final String COLUMN_ORDERS_PET_PROD_ID = "pet_prod_id";
     public static final String COLUMN_ORDERS_COUNT = "order_count";
-    public static final String COLUMN_ORDERS_DATE_CHANGE = "date_order_change";
 
     public static final String TABLE_PET_PRODUCT = "pet_product";
     public static final String COLUMN_PET_PROD_ID = "pet_prod_id";
@@ -132,6 +131,20 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_PET_PROD_DATE_CHANGE + " DATETIME,"
                 + COLUMN_PET_PROD_CATEGOGY_ID + " INTERGER, "
                 + "FOREIGN KEY(" + COLUMN_PET_PROD_CATEGOGY_ID + ") REFERENCES " + TABLE_PET_CATEGOGY + "(" + COLUMN_PET_CATEGORY_ID + ")"
+                + ")");
+
+        // tao bang orders
+        db.execSQL("CREATE TABLE " + TABLE_ORDERS + "("
+                + COLUMN_ORDERS_COUNT + " INTEGER PRIMARY KEY AUTOINCREMENT,"
+                + COLUMN_ORDERS_ID + " TEXT UNIQUE,"
+                + COLUMN_ORDERS_DATE + " DATETIME,"
+                + COLUMN_ORDERS_TOTAL + " REAL,"
+                + COLUMN_ORDERS_NUMBER_OF_ITEM + " INTEGER,"
+                + COLUMN_ORDERS_USER_ID + " INTEGER,"
+                + COLUMN_ORDERS_STATUS + " INTEGER DEFAULT 0,"
+                + COLUMN_ORDERS_PET_PROD_ID + " TEXT,"
+                + "FOREIGN KEY(" + COLUMN_ORDERS_USER_ID + ") REFERENCES " + TABLE_USERS + "(" + COLUMN_USER_ID + "), "
+                + "FOREIGN KEY(" + COLUMN_ORDERS_PET_PROD_ID + ") REFERENCES " + TABLE_PET_PRODUCT + "(" + COLUMN_PET_PROD_ID + ")"
                 + ")");
     }
 
