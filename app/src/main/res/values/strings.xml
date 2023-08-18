@@ -1,3 +1,9 @@
 <resources>
-    <string name="app_name">project</string>
+    <string name="app_name">Petshop</string>
+    <string name="intro_fist_line">Place find the best choice for your pet</string>
+    <string name="intro_second_line">Shop is in your hand now!!!</string>
+    <string name="btn_login">User Login here</string>
+    <string name="btn_user_signup">New User? Register here</string>
+    <string name="enter_email">Enter email</string>
+    <string name="enter_password">Enter password</string>
 </resources>
