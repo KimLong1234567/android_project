@@ -1,10 +1,13 @@
 package com.example.project;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import com.example.project.user.User;
 
 public class MyDatabaseHelper extends SQLiteOpenHelper {
 
@@ -20,6 +23,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_USER_PHONE = "user_phone";
     public static final String COLUMN_USER_ADDRESS = "user_address";
     public static final String COLUMN_USER_DATE_CREATE = "user_date_create";
+    public static final String COLUMN_USER_EMAIL = "user_email";
 
     public static final String TABLE_PETS = "pets";
     public static final String COLUMN_PETS_NAME = "pet_name";
@@ -89,7 +93,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
                 + COLUMN_USER_PASSWORD + " TEXT,"
                 + COLUMN_USER_PHONE + " TEXT,"
                 + COLUMN_USER_ADDRESS + " TEXT,"
-                + COLUMN_USER_DATE_CREATE + " DATETIME "
+                + COLUMN_USER_DATE_CREATE + " DATETIME, "
+                + COLUMN_USER_EMAIL + " TEXT "
                 + ")");
 
         //tao bang pet_categogy
@@ -167,6 +172,23 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int i, int i1) {
+
+    }
+
+    public long insertUser(User user){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+        values.put("COLUMN_USER_NAME", user.getFirstname() + user.getLastname());
+        values.put("COLUMN_USER_PASSWORD", user.getConfpassword());
+        values.put("COLUMN_USER_PHONE", user.getContactno());
+        values.put("COLUMN_USER_EMAIL", user.getEmail());
+
+        // Thực hiện chèn dữ liệu và trả về kết quả (row ID)
+        long result = db.insert("users", null, values);
+        db.close();
+
+        return result;
 
     }
 }

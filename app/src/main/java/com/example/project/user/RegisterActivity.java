@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.example.project.MyDatabaseHelper;
 import com.example.project.R;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -16,6 +17,7 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
     TextInputLayout userFirstNameWrapper, userLastNameWrapper, userEmailWrapper, userPasswordWrapper,
             userConfPasswordWrapper, userContactNoWrapper;
+    MyDatabaseHelper dbHelper = new MyDatabaseHelper(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +63,20 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if(email.isEmpty()){
-                    userLastNameWrapper.setError("Enter Email");
-                    userLastNameWrapper.requestFocus();
+                    userEmailWrapper.setError("Enter Email");
+                    userEmailWrapper.requestFocus();
                     return;
                 }
 
                 if(password.isEmpty()){
-                    userLastNameWrapper.setError("Enter Password");
-                    userLastNameWrapper.requestFocus();
+                    userPasswordWrapper.setError("Enter Password");
+                    userPasswordWrapper.requestFocus();
                     return;
                 }
 
                 if(confpassword.isEmpty()){
-                    userLastNameWrapper.setError("Enter Confirm Password");
-                    userLastNameWrapper.requestFocus();
+                    userConfPasswordWrapper.setError("Enter Confirm Password");
+                    userConfPasswordWrapper.requestFocus();
                     return;
                 }
 
@@ -85,12 +87,22 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 if(contactno.isEmpty()){
-                    userLastNameWrapper.setError("Enter Lastname");
-                    userLastNameWrapper.requestFocus();
+                    userContactNoWrapper.setError("Enter Lastname");
+                    userContactNoWrapper.requestFocus();
                     return;
+                }
+
+                User user = new User(firstname, lastname, email, confpassword, contactno);
+                long result = dbHelper.insertUser(user);
+
+                if (result != -1){
+                    //ghi thanh cong
+                } else{
+                    //trg hop that bai
                 }
             }
         });
 
     }
+
 }
